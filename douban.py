@@ -36,7 +36,7 @@ for i in range(0,226,25):
             list3.append(content[0])
         else:
             list3.append(' ')
-    # 其他信息
+    # 0
     list40 = tree.xpath('//*[@id="content"]/div/div[1]/ol/li/div/div[2]/div[2]/p[1]/text()[1]')
     list41 = tree.xpath('//*[@id="content"]/div/div[1]/ol/li/div/div[2]/div[2]/p[1]/text()[2]')
     # 电影详情链接
