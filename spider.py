@@ -9,7 +9,6 @@ import re
 import urllib.request , urllib.error
 import xlwt
 import sqlite3
-import ssl
 
 # ssl._create_default_https_context = ssl._create_unverified_context
 

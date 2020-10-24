@@ -1,7 +1,18 @@
-print("Hello world")
+# print("Hello world")
+#
+# print("Hello world1")
+#
+# # print("Hello world2")
+#
+# print("pig")
+#
 
-print("Hello world1")
 
-# print("Hello world2")
+def hi(name = "River"):
+    return "hi,"+ name
 
-print("pig")
+# print(hi())
+
+greet = hi
+
+print(greet())
