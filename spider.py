@@ -32,8 +32,6 @@ def getData(baseUrl):
     dataList = []
     for i in range(0,10):       #调用获取页面信息的函数，10次
         url = baseUrl + str(i*25)
-        # dataList.append(url)
-        # print(dataList[i])
         html = askUrl(url)      #保存获取到的网页源码
 
         # 2. 解析数据
