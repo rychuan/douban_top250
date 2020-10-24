@@ -9,17 +9,22 @@ import re
 import urllib.request , urllib.error
 import xlwt
 import sqlite3
+import ssl
+
+# ssl._create_default_https_context = ssl._create_unverified_context
+
 
 
 def main():
     baseUrl = "https://movie.douban.com/top250?start="
     #1. 爬取网页
-    datalist = getData(baseUrl)
+    # datalist = getData(baseUrl)
     #2. 解析数据
     savePath = ".\\豆瓣电影top250.xls"
     # 3. 保存数据
     # saveData(savePath)
-    askUrl("https://movie.douban.com/top250?start=0")
+    # askUrl("https://movie.douban.com/top250?start=0")
+    askUrl("https://www.baidu.com")
 
 
 #爬取网页
@@ -27,11 +32,11 @@ def getData(baseUrl):
     dataList = []
     for i in range(0,10):       #调用获取页面信息的函数，10次
         url = baseUrl + str(i*25)
+        # dataList.append(url)
+        # print(dataList[i])
         html = askUrl(url)      #保存获取到的网页源码
 
         # 2. 解析数据
-
-
 
     return dataList
 
