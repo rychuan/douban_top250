@@ -17,13 +17,14 @@ import sqlite3
 def main():
     baseUrl = "https://movie.douban.com/top250?start="
     #1. 爬取网页
-    # datalist = getData(baseUrl)
+    dataList = getData(baseUrl)
+    print(dataList[0])
     #2. 解析数据
     savePath = ".\\豆瓣电影top250.xls"
     # 3. 保存数据
     # saveData(savePath)
     # askUrl("https://movie.douban.com/top250?start=0")
-    askUrl("https://www.baidu.com")
+    # askUrl("https://www.baidu.com")
 
 
 #爬取网页
@@ -34,6 +35,8 @@ def getData(baseUrl):
         html = askUrl(url)      #保存获取到的网页源码
 
         # 2. 解析数据
+        dataList.append(html)
+        print("已获取第%d页"%(i+1))
 
     return dataList
 
@@ -41,10 +44,10 @@ def getData(baseUrl):
 def askUrl(url):
     head = {       #模拟浏览器头部信息，向服务器发送消息
         #windows
-        # "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.80 Safari/537.36 Edg/86.0.622.43"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.80 Safari/537.36 Edg/86.0.622.43"
 
         #MacBook
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15"
+        # "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15"
     }
     # 用户代理，表示告诉服务器，我们是什么类型的机器（本质上是告诉浏览器我们可以接收什么水平的文件内容）
 
@@ -53,7 +56,8 @@ def askUrl(url):
     try:
         response = urllib.request.urlopen(request)
         html = response.read().decode("utf-8")
-        print(html)
+        # print(html)
+        print("......")
 
     except urllib.error.URLError as e:
         if hasattr(e,"code"):
