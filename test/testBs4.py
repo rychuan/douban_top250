@@ -113,9 +113,13 @@ def main():
     # t_list = bs.select("title") #通过标签来查找
     # t_list = bs.select(".item") #通过类名来查找
     # t_list = bs.select("#db-global-nav")   #通过id来查找
-    t_list = bs.select("a[class='movieannual']")    #通过属性来查找
-    for item in t_list:
-        print("%s\n\n"%item)
+    # t_list = bs.select("a[class='movieannual']")    #通过属性来查找
+    # t_list = bs.select("div > div") #通过子便签来查找
+    # t_list = bs.select(".mnav ~ .bri")
+    # print(t_list[0].get_text())
+
+    # for item in t_list:
+    #     print("%s\n\n"%item)
 
 
 
