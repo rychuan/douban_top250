@@ -16,7 +16,8 @@ def main():
     baseUrl = "https://movie.douban.com/top250?start="
     #1. 爬取网页
     dataList = getData(baseUrl)
-    # print(dataList)
+    for i in dataList:
+        print(i)
     #2. 解析数据
     savePath = ".\\豆瓣电影top250.xls"
     # 3. 保存数据
@@ -57,7 +58,7 @@ def getData(baseUrl):
 
             imgSrc = re.findall(findImgSrc,item)[0]
             data.append(imgSrc)
-            print(data[1])
+            # print(data)
 
             titles = re.findall(findTitle,item)
             if(len(titles) == 2):
