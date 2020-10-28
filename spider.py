@@ -40,7 +40,7 @@ findBd = re.compile(r'<p class="">(.*?)</p>',re.S)
 #爬取网页
 def getData(baseUrl):
     dataList = []
-    for i in range(0,1):       #调用获取页面信息的函数，10次
+    for i in range(0,10):       #调用获取页面信息的函数，10次
         url = baseUrl + str(i*25)
         html = askUrl(url)      #保存获取到的网页源码
 
