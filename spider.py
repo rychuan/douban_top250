@@ -84,7 +84,8 @@ def getData(baseUrl):
 
             bd = re.findall(findBd,item)[0]             #re.findall()的返回值是什么？
             bd = re.sub('<br(\s+)?/>(\s+)?'," ",bd) #去掉<br/>
-            bd = re.sub('/'," ",bd) #替换/
+            # bd = re.sub('/'," ",bd) #替换/
+            bd = re.sub(r'\xa0', " ", bd)
             data.append(bd.strip()) #去掉前后的空格
 
             dataList.append(data)   #把处理好的一部电影信息放入dataList
