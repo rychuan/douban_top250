@@ -16,8 +16,10 @@ def main():
     baseUrl = "https://movie.douban.com/top250?start="
     #1. 爬取网页
     dataList = getData(baseUrl)
-    for i in dataList:
-        print(i)
+
+    # print(dataList[0][2])
+    # for i in dataList:
+    #     print(i)
     #2. 解析数据
     savePath = ".\\豆瓣电影top250.xls"
     # 3. 保存数据
@@ -87,6 +89,7 @@ def getData(baseUrl):
             # bd = re.sub('/'," ",bd) #替换/
             bd = re.sub(r'\xa0', " ", bd)
             data.append(bd.strip()) #去掉前后的空格
+            # 完成一部电影信息提取
 
             dataList.append(data)   #把处理好的一部电影信息放入dataList
 
