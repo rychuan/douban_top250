@@ -7,7 +7,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 
-reponse = urllib.request.urlopen('http://www.baidu.com')
+reponse = urllib.request.urlopen('https://www.baidu.com/')
 
 html = reponse.read().decode('utf-8')
 # print(reponse.read().decode('utf-8'))
