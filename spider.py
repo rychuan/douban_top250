@@ -15,11 +15,13 @@ import sqlite3
 def main():
     baseUrl = "https://movie.douban.com/top250?start="
     #1. 爬取网页
-    dataList = getData(baseUrl)
+    dataList = getData(baseUrl) #爬取结果
 
     # print(dataList[0][2])
     # for i in dataList:
     #     print(i)
+
+
     #2. 解析数据
     savePath = ".\\豆瓣电影top250.xls"
     # 3. 保存数据
@@ -27,16 +29,13 @@ def main():
     # askUrl("https://movie.douban.com/top250?start=0")
     # askUrl("https://www.baidu.com")
 
-#影片详情链接的规则
-findLink = re.compile(r'<a href="(.*?)">')     #创建正则表达式对象，表示规则（字符串的模式）
-#影片图片链接的规则
-findImgSrc = re.compile(r'<img.*src="(.*?)"',re.S)      #re.S忽略换行符，让换行符包含在字符中
+findLink = re.compile(r'<a href="(.*?)">')     #影片详情链接的规则，创建正则表达式对象，表示规则（字符串的模式）
+findImgSrc = re.compile(r'<img.*src="(.*?)"',re.S)  #影片图片链接的规则，re.S忽略换行符，让换行符包含在字符中
 findTitle = re.compile(r'<span class="title">(.*?)</span>')
 findRating = re.compile(r'<span class="rating_num" property="v:average">(.*)</span>')
 findJudge = re.compile(r'<span>(\d*)人评价</span>')
 finInq = re.compile(r'<span class="inq">(.*)</span>')
-#找到影片的相关内容
-findBd = re.compile(r'<p class="">(.*?)</p>',re.S)
+findBd = re.compile(r'<p class="">(.*?)</p>',re.S)  #找到影片的相关内容
 
 
 #爬取网页
@@ -123,7 +122,7 @@ def askUrl(url):
     return html
 
 #3. 保存数据
-def saveData(savepath  ):
+def saveData(savepath):
     print("save......")
 
 
