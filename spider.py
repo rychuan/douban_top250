@@ -16,8 +16,8 @@ def main():
     baseUrl = "https://movie.douban.com/top250?start="
     #1. 爬取网页
     dataList = getData(baseUrl) #爬取结果
-
-    # print(dataList[0][2])
+    # print(dataList[0])
+    # print(len(dataList[0]))
     # for i in dataList:
     #     print(i)
 
@@ -25,7 +25,9 @@ def main():
     #2. 解析数据
     savePath = ".\\豆瓣电影top250.xls"
     # 3. 保存数据
-    # saveData(savePath)
+    saveData(dataList,savePath)
+
+
     # askUrl("https://movie.douban.com/top250?start=0")
     # askUrl("https://www.baidu.com")
 
@@ -66,6 +68,8 @@ def getData(baseUrl):
                 ctitle = titles[0]
                 data.append(ctitle)
                 otitle = titles[1].replace("/","") #去掉无关的符号
+                otitle = re.sub(r'\xa0', "", otitle)
+                data.append(otitle)
             else:
                 data.append(titles[0])
                 data.append(' ')    #外国名留空
@@ -122,9 +126,21 @@ def askUrl(url):
     return html
 
 #3. 保存数据
-def saveData(savepath):
-    print("save......")
+def saveData(dataList,savePath):
+    book = xlwt.Workbook(encoding='utf-8',style_compression=0)
+    sheet = book.add_sheet("豆瓣电影Top250", cell_overwrite_ok = True)
+    col = ("电影详情链接","图片链接","电影中文名","电影外国名","评分","评分数量","概况","相关信息")
 
+    for i in range(0,8):
+        sheet.write(0,i,col[i]) #表头
+
+    for i in range(0,250):
+        data = dataList[i]
+        for j in range(0,8):
+            sheet.write(i+1,j,data[j])  #写入一行数据
+
+    book.save(savePath) #保存数据
+    print("数据已保存成功，请在根目录下查看%s"%savePath)
 
 if __name__ == '__main__':
     main()
