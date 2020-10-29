@@ -16,7 +16,7 @@ headers = {
 list_whole = []
 page = 1
 for i in range(0,226,25):
-    url = 'https://movie`.douban.com/top250?start={}&filter='.format(i)
+    url = 'https://movie.douban.com/top250?start={}&filter='.format(i)
     print(url)
     res = requests.get(url=url,headers=headers)
     tree = etree.HTML(res.text)

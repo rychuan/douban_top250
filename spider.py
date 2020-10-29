@@ -20,12 +20,13 @@ def main():
     # print(len(dataList[0]))
     # for i in dataList:
     #     print(i)
-
-
+    print("一共有%d条数据"%len(dataList))
     #2. 解析数据
-    savePath = ".\\豆瓣电影top250.xls"
+    # savePath = ".\\豆瓣电影top250.xls"
+    dbPath = ".\\movie.db"
     # 3. 保存数据
-    saveData(dataList,savePath)
+    # saveData(dataList,savePath)
+    saveData2DB(dataList,dbPath)
 
 
     # askUrl("https://movie.douban.com/top250?start=0")
@@ -56,7 +57,8 @@ def getData(baseUrl):
             item = str(item)
 
             link = re.findall(findLink,item)[0]     #re库用来通过正则表达式查找指定字符串
-            data.append(link)
+            print(link)
+            # data.append(link)
             # print(data)
 
             imgSrc = re.findall(findImgSrc,item)[0]
@@ -129,18 +131,61 @@ def askUrl(url):
 def saveData(dataList,savePath):
     book = xlwt.Workbook(encoding='utf-8',style_compression=0)
     sheet = book.add_sheet("豆瓣电影Top250", cell_overwrite_ok = True)
-    col = ("电影详情链接","图片链接","电影中文名","电影外国名","评分","评分数量","概况","相关信息")
+    col = ("电影详情链接","图片链接","电影中文名","电影外国名","评分","评分数量","概况","相关信息") #表头
 
     for i in range(0,8):
-        sheet.write(0,i,col[i]) #表头
+        sheet.write(0,i,col[i])
 
-    for i in range(0,250):
+    for i in range(0,len(dataList)):  #行数循环
         data = dataList[i]
-        for j in range(0,8):
+
+        for j in range(0,len(data)):    #列数循环
             sheet.write(i+1,j,data[j])  #写入一行数据
 
     book.save(savePath) #保存数据
     print("数据已保存成功，请在根目录下查看%s"%savePath)
 
+def saveData2DB(dataList,dbPath):
+    # init_db(dbPath)
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+    for data in dataList:
+        for index in range(len(data)):
+            if index ==4 or index == 5:
+                continue
+            data[index] = '"'+data[index]+'"'
+        sql = '''
+            insert into movie250 (
+            info_link,pic_link,cname,ename,sorce,rated,instroduction,info)
+            values(%s)
+        '''%",".join(data)
+        print(sql)
+        cursor.execute(sql)
+        conn.commit()
+
+    cursor.close()
+    conn.close()
+
+def init_db(dbPath):
+    sql = '''
+        create table movie250 (
+            id integer primary key autoincrement,
+            info_link text,
+            pic_link text,
+            cname varchar ,
+            ename varchar ,
+            sorce numeric ,
+            rated numeric ,
+            instroduction text,
+            info text
+        );
+    '''
+    conn = sqlite3.connect(dbPath)
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    conn.close()
+
 if __name__ == '__main__':
     main()
+    # init_db()
