@@ -10,16 +10,11 @@ import urllib.request , urllib.error
 import xlwt
 import sqlite3
 
-# ssl._create_default_https_context = ssl._create_unverified_context
-
 def main():
     baseUrl = "https://movie.douban.com/top250?start="
     #1. 爬取网页
     dataList = getData(baseUrl) #爬取结果
-    # print(dataList[0])
-    # print(len(dataList[0]))
-    # for i in dataList:
-    #     print(i)
+
     print("一共有%d条数据"%len(dataList))
     #2. 解析数据
     # savePath = ".\\豆瓣电影top250.xls"
@@ -28,10 +23,6 @@ def main():
     # saveData(dataList,savePath)
     saveData2DB(dataList,dbPath)
 
-
-    # askUrl("https://movie.douban.com/top250?start=0")
-    # askUrl("https://www.baidu.com")
-
 findLink = re.compile(r'<a href="(.*?)">')     #影片详情链接的规则，创建正则表达式对象，表示规则（字符串的模式）
 findImgSrc = re.compile(r'<img.*src="(.*?)"',re.S)  #影片图片链接的规则，re.S忽略换行符，让换行符包含在字符中
 findTitle = re.compile(r'<span class="title">(.*?)</span>')
@@ -39,7 +30,6 @@ findRating = re.compile(r'<span class="rating_num" property="v:average">(.*)</sp
 findJudge = re.compile(r'<span>(\d*)人评价</span>')
 finInq = re.compile(r'<span class="inq">(.*)</span>')
 findBd = re.compile(r'<p class="">(.*?)</p>',re.S)  #找到影片的相关内容
-
 
 #爬取网页
 def getData(baseUrl):
@@ -58,12 +48,9 @@ def getData(baseUrl):
 
             link = re.findall(findLink,item)[0]     #re库用来通过正则表达式查找指定字符串
             print(link)
-            # data.append(link)
-            # print(data)
 
             imgSrc = re.findall(findImgSrc,item)[0]
             data.append(imgSrc)
-            # print(data)
 
             titles = re.findall(findTitle,item)
             if(len(titles) == 2):
@@ -138,7 +125,6 @@ def saveData(dataList,savePath):
 
     for i in range(0,len(dataList)):  #行数循环
         data = dataList[i]
-
         for j in range(0,len(data)):    #列数循环
             sheet.write(i+1,j,data[j])  #写入一行数据
 
