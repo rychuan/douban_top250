@@ -47,7 +47,8 @@ def getData(baseUrl):
             item = str(item)
 
             link = re.findall(findLink,item)[0]     #re库用来通过正则表达式查找指定字符串
-            print(link)
+            data.append(link)
+            # print(link)
 
             imgSrc = re.findall(findImgSrc,item)[0]
             data.append(imgSrc)
@@ -132,7 +133,7 @@ def saveData(dataList,savePath):
     print("数据已保存成功，请在根目录下查看%s"%savePath)
 
 def saveData2DB(dataList,dbPath):
-    # init_db(dbPath)
+    init_db(dbPath)
     conn = sqlite3.connect(dbPath)
     cursor = conn.cursor()
     for data in dataList:
@@ -145,7 +146,7 @@ def saveData2DB(dataList,dbPath):
             info_link,pic_link,cname,ename,sorce,rated,instroduction,info)
             values(%s)
         '''%",".join(data)
-        print(sql)
+        # print(sql)
         cursor.execute(sql)
         conn.commit()
 
